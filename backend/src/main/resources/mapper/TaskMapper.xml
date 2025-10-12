@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todo.mapper.TaskMapper">
+
+  <select id="findAll" resultType="com.example.todo.model.Task">
+    SELECT * FROM tasks ORDER BY id
+  </select>
+
+  <insert id="insertTask" parameterType="com.example.todo.model.Task" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO tasks (title, done) VALUES (#{title}, #{done})
+  </insert>
+
+  <update id="updateTask" parameterType="com.example.todo.model.Task">
+    UPDATE tasks
+    SET done = #{done},
+        title = #{title}
+    WHERE id = #{id}
+  </update>
+
+  <delete id="deleteTask" parameterType="com.example.todo.model.Task">
+    DELETE FROM tasks
+    WHERE id = #{id}
+  </delete>
+
+</mapper>

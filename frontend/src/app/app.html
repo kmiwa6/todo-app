@@ -1,0 +1,18 @@
+﻿<h2>📋 タスク一覧</h2>
+<div class='form'>
+  <input [(ngModel)]='newTask' placeholder='新しいタスクを入力...' />
+  <button (click)='addTask()'>追加</button>
+</div>
+<ul>
+  @for (task of tasks; track task.id) {
+    <li>
+      <input
+        type="checkbox"
+        [(ngModel)]="task.done"
+        (change)="toggleDone(task)"
+      />
+      <span [class.done]="task.done">{{ task.title }}</span>
+      <button (click)="deleteTask(task)">削除</button>
+    </li>
+  }
+</ul>
