@@ -11,7 +11,19 @@
         [(ngModel)]="task.done"
         (change)="toggleDone(task)"
       />
-      <span [class.done]="task.done">{{ task.title }}</span>
+      @if (editingID == task.id) {
+        <input
+        [(ngModel)]="editTitle"
+        (keyup.enter)="saveTitle(task)"
+        (keyup.escape)="cancelEdit()"
+        />
+        <button (click)="saveTitle(task)">保存</button>
+        <button (click)="cancelEdit()">取消</button>
+      }@else {
+        <span>{{ task.title }}</span>
+        <button (click)="startEdit(task)">編集</button>
+      }
+
       <button (click)="deleteTask(task)">削除</button>
     </li>
   }

@@ -15,6 +15,9 @@ export class App {
   tasks: Task[] = [];
   newTask = '';
 
+  editingID: number | null = null;
+  editTitle ='';
+
   ngOnInit() {
     this.load();
   }
@@ -29,6 +32,44 @@ export class App {
     this.taskService.addTask(task).subscribe(() => {
       this.newTask = '';
       this.load();
+    });
+  }
+
+  startEdit(task: Task){
+    if (!task.id) return;
+    this.editingID = task.id;
+    this.editTitle = task.title;
+  }
+
+  cancelEdit(){
+    this.editingID = null;
+    this.editTitle = '';
+  }
+
+  saveTitle(task: Task) {
+    if (!task.id) return;
+
+    const title = this.editTitle.trim();
+    // 変更なし/空はスキップ
+    if (!title || title === task.title) {
+      this.cancelEdit();
+      return;
+    }
+
+    const payload: Task = { ...task, title }; // done も含まれる
+
+    this.taskService.updateTask(payload).subscribe({
+      next: () => {
+       // ローカル配列を更新（見つかった要素を更新）
+       const t = this.tasks.find(x => x.id === task.id);
+       if (t) t.title = title;
+        this.cancelEdit();
+      },
+      error: (err) => {
+        console.error('update failed', err);
+        // 失敗時の挙動（編集は続ける/メッセージ表示など）
+        // 例: this.errorMessage = '更新に失敗しました';
+     }
     });
   }
 

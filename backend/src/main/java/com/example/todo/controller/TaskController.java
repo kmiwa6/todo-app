@@ -29,9 +29,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id,@RequestBody Task task) {
-        task.setId(id);
-        service.deleteTask(task);
+    public void delete(@PathVariable Long id) {
+        service.deleteTask(id);
     }
-
 }

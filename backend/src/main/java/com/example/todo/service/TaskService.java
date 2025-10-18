@@ -26,7 +26,7 @@ public class TaskService {
         mapper.updateTask(task);
     }
 
-    public void deleteTask(Task task) {
-        mapper.deleteTask(task);
+    public void deleteTask(Long id) {
+        mapper.deleteTask(id);
     }
 }

@@ -20,7 +20,7 @@
     WHERE id = #{id}
   </update>
 
-  <delete id="deleteTask" parameterType="com.example.todo.model.Task">
+  <delete id="deleteTask" parameterType="long">
     DELETE FROM tasks
     WHERE id = #{id}
   </delete>

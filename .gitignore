@@ -1,6 +1,7 @@
 # --- Node / Angular ---
 node_modules/
 dist/
+target/
 .angular/cache/
 coverage/
 npm-debug.log*

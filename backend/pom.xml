@@ -5,12 +5,12 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- ✅ Spring Bootの親POMを追加 -->
+  <!-- ✅ Spring Boot親POM -->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.3.3</version>
-    <relativePath/> <!-- lookup from repository -->
+    <relativePath/>
   </parent>
 
   <!-- ✅ プロジェクト情報 -->
@@ -21,13 +21,12 @@
   <description>Spring Boot + MyBatis + Angular Todo App</description>
 
   <properties>
-   <java.version>21</java.version>
-   <maven.compiler.source>21</maven.compiler.source>
-   <maven.compiler.target>21</maven.compiler.target>
+    <!-- ✅ JavaバージョンをJDK21に固定 -->
+    <java.version>21</java.version>
   </properties>
 
   <dependencies>
-    <!-- Web -->
+    <!-- Spring Boot Web -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -51,11 +50,11 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.32</version>
+      <version>1.18.36</version> <!-- ✅ 最新安定版（JDK21完全対応） -->
       <optional>true</optional>
     </dependency>
 
-    <!-- Test -->
+    <!-- Spring Boot Test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -66,23 +65,30 @@
   <build>
     <plugins>
 
-      <!-- ✅ Lombokアノテーションプロセッサを有効化 -->
+      <!-- ✅ JDK21 対応 maven-compiler-plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
+          <!-- ✅ JDK 21での内部APIエラー防止 -->
+          <release>21</release>
+          <fork>true</fork>
+          <compilerArgs>
+            <!-- Lombokのアノテーション処理を有効化 -->
+            <arg>-parameters</arg>
+          </compilerArgs>
           <annotationProcessorPaths>
             <path>
-              <groupId>org.projectlombok</groupId>
-              <artifactId>lombok</artifactId>
-              <version>1.18.32</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
       </plugin>
 
-      <!-- Spring Boot プラグイン -->
+      <!-- ✅ Spring Boot プラグイン -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -92,4 +98,3 @@
   </build>
 
 </project>
-
